@@ -3,8 +3,8 @@
 ResourceManager::ResourceManager() {
   ship.loadFromFile("data/ship.png");
   missile.loadFromFile("data/missile.png");
-  asteroid.loadFromFile("data/ship.png");
-  background.loadFromFile("data/ship.png");
+  asteroid.loadFromFile("data/asteroid.png");
+  background.loadFromFile("data/background.png");
   font.openFromFile("data/roboto.ttf");
 }
 

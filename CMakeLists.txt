@@ -16,6 +16,7 @@ set (SOURCES
 "code/main.cpp" 
 "code/game_control.cpp"
 "code/gamemode.cpp"
+"code/menu.cpp"
 "code/object.cpp" 
 "code/player.cpp" 
 "code/asteroid.cpp" 
@@ -24,6 +25,7 @@ set (SOURCES
 set (HEADERS 
 "code/game_control.h"
 "code/gamemode.h"
+"code/menu.h"
 "code/object.h"
 "code/player.h" 
 "code/asteroid.h" 

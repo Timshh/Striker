@@ -4,14 +4,20 @@ GameControl::GameControl()
     : state(GameStates::kMenu),
       high_score(0),
       window(sf::RenderWindow(sf::VideoMode({600, 500}), "Striker",
-                                     sf::State::Windowed)),
-      manager(ResourceManager()) {
+                              sf::State::Windowed)),
+      manager(ResourceManager()),
+      menu(&window, manager.getFont()),
+      background(*manager.getBackgroundTexture()) {
+
   srand(std::time(NULL));
   gamemode.reset(new Gamemode(&window, &manager));
-  state = GameStates::kPlaying;
+  state = GameStates::kMenu;
+  background.setPosition(sf::Vector2f(300, 250) +
+                         sf::Vector2f(background.getTexture().getSize()));
 }
 
 void GameControl::run() {
+  background = sf::Sprite(*manager.getBackgroundTexture());
   while (window.isOpen()) {
     if (auto event = window.pollEvent()) {
       if (event->is<sf::Event::Closed>()) window.close();
@@ -23,13 +29,19 @@ void GameControl::run() {
 void GameControl::update() {
   float delta_time = time.restart().asSeconds();
   window.clear();
+  window.draw(background);
   switch (state) {
     case GameStates::kMenu:
+      if (menu.update()) {
+        gamemode.reset(new Gamemode(&window, &manager));
+        state = GameStates::kPlaying;
+      }
       break;
     case GameStates::kPlaying:
       if (gamemode->update(delta_time)) {
         state = GameStates::kMenu;
         high_score = std::max(gamemode->getScore(), high_score);
+        menu.updateScore(high_score);
       }
       break;
   }
