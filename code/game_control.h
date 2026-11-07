@@ -15,6 +15,7 @@ class GameControl {
   void update();
 
  private:
+  sf::RenderWindow window;
   sf::Clock time;
   ResourceManager manager;
   std::unique_ptr<Gamemode> gamemode;

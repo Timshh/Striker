@@ -18,13 +18,17 @@ set (SOURCES
 "code/gamemode.cpp"
 "code/object.cpp" 
 "code/player.cpp" 
-"code/asteroid.cpp" "code/resource_manager.cpp")
+"code/asteroid.cpp" 
+"code/resource_manager.cpp" 
+"code/missile.cpp")
 set (HEADERS 
 "code/game_control.h"
 "code/gamemode.h"
 "code/object.h"
 "code/player.h" 
-"code/asteroid.h")
+"code/asteroid.h" 
+"code/resource_manager.h" 
+"code/missile.h")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)

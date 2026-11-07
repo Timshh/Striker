@@ -4,11 +4,13 @@
 
 class Player : public Object {
  public:
-  Player();
+  Player(sf::RenderWindow* window, sf::Texture* ship_texture, sf::Texture* missile_texture);
   bool update(float delta_time) override;
   void takeDamage(int damage) override;
   void updateScore(int new_score);
 
  private:
-  float fire_speed, fire_cd;
+  sf::Texture* missile_texture;
+  //std::vector<> missiles;
+  float fire_speed, fire_cd, position;
 };

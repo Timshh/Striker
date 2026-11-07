@@ -1,6 +1,11 @@
 ﻿#include "gamemode.h"
 
-Gamemode::Gamemode() : player(Player()), score(0) {}
+Gamemode::Gamemode(sf::RenderWindow* window, ResourceManager* manager)
+    : window(window),
+      manager(manager),
+      player(Player(window, manager->getShipTexture(),
+                    manager->getMissileTexture())),
+      score(0) {}
 
 bool Gamemode::update(float delta_time) {
   if (player.update(delta_time)) {
@@ -16,7 +21,7 @@ bool Gamemode::update(float delta_time) {
     }
   }
 
-  erase_if(debris, [](Asteroid a) { return !a.isAlive(); });
+  erase_if(debris, [](Asteroid a) { return !a.isAlive() || a.isTooFar(); });
 
   if (scores_changed) {
     player.updateScore(score);
@@ -26,3 +31,5 @@ bool Gamemode::update(float delta_time) {
   }
   return false;
 }
+
+int Gamemode::getScore() { return score; }

@@ -1,17 +1,19 @@
 ﻿#include "game_control.h"
 
 GameControl::GameControl()
-    : state(GameStates::kMenu), high_score(0), manager(ResourceManager()) {
-  gamemode.reset(new Gamemode());
+    : state(GameStates::kMenu),
+      high_score(0),
+      window(sf::RenderWindow(sf::VideoMode({600, 500}), "Striker",
+                                     sf::State::Windowed)),
+      manager(ResourceManager()) {
+  gamemode.reset(new Gamemode(&window, &manager));
   state = GameStates::kPlaying;
 }
 
 void GameControl::run() {
-  sf::RenderWindow render_window(sf::VideoMode({1366, 768}), "Striker",
-                                sf::State::Windowed);
-  while (render_window.isOpen()) {
-    if (auto event = render_window.pollEvent()) {
-      if (event->is<sf::Event::Closed>()) render_window.close();
+  while (window.isOpen()) {
+    if (auto event = window.pollEvent()) {
+      if (event->is<sf::Event::Closed>()) window.close();
     }
     update();
   }
@@ -19,11 +21,16 @@ void GameControl::run() {
 
 void GameControl::update() {
   float delta_time = time.restart().asSeconds();
+  window.clear();
   switch (state) {
     case GameStates::kMenu:
       break;
     case GameStates::kPlaying:
-      gamemode->update(delta_time);
+      if (gamemode->update(delta_time)) {
+        state = GameStates::kMenu;
+        high_score = std::max(gamemode->getScore(), high_score);
+      }
       break;
   }
+  window.display();
 };
