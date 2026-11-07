@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "object.h"
+#include "missile.h"
 
 class Player : public Object {
  public:
@@ -11,6 +12,6 @@ class Player : public Object {
 
  private:
   sf::Texture* missile_texture;
-  //std::vector<> missiles;
+  std::vector<Missile> missiles;
   float fire_speed, fire_cd, position;
 };

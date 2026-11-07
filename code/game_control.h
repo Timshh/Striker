@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <memory>
+#include <ctime>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "gamemode.h"

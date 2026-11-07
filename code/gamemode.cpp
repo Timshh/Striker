@@ -5,16 +5,21 @@ Gamemode::Gamemode(sf::RenderWindow* window, ResourceManager* manager)
       manager(manager),
       player(Player(window, manager->getShipTexture(),
                     manager->getMissileTexture())),
-      score(0) {}
+      score(0), debris_cd(0) {}
 
 bool Gamemode::update(float delta_time) {
   if (player.update(delta_time)) {
     return true;
   }
+  debris_cd -= delta_time;
+  if (debris_cd <= 0) {
+    debris_cd = 2;
+    debris.push_back(Asteroid(score, window, manager->getAsteroidTexture()));
+  }
 
   bool scores_changed = false;
 
-  for (Asteroid asteroid : debris) {
+  for (Asteroid& asteroid : debris) {
     if (asteroid.update(delta_time)) {
       score++;
       scores_changed = true;

@@ -6,6 +6,7 @@ GameControl::GameControl()
       window(sf::RenderWindow(sf::VideoMode({600, 500}), "Striker",
                                      sf::State::Windowed)),
       manager(ResourceManager()) {
+  srand(std::time(NULL));
   gamemode.reset(new Gamemode(&window, &manager));
   state = GameStates::kPlaying;
 }

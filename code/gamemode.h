@@ -17,5 +17,6 @@ class Gamemode {
   sf::RenderWindow* window;
   Player player;
   std::vector<Asteroid> debris;
+  float debris_cd;
   int score;
 };
