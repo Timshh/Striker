@@ -8,6 +8,7 @@ class Object {
  public:
   Object(int health, sf::RenderWindow* window, sf::Texture* texture);
   bool isAlive();
+  sf::Sprite* getBody();
   virtual bool update(float delta_time);
   virtual void takeDamage(int damage);
 

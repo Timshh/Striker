@@ -4,7 +4,8 @@
 
 class Missile : public Object {
  public:
-  Missile(sf::RenderWindow* window, sf::Texture* texture);
+  Missile(sf::RenderWindow* window, sf::Texture* texture,
+          sf::Vector2f position);
   bool update(float delta_time) override;
   bool isTooFar();
   void takeDamage(int damage) override;

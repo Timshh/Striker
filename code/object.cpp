@@ -8,6 +8,8 @@ Object::Object(int health, sf::RenderWindow* window, sf::Texture* texture)
 
 bool Object::isAlive() { return alive; }
 
+sf::Sprite* Object::getBody() { return &body; }
+
 bool Object::update(float delta_time) {
   window->draw(body);
   if (!alive) {
